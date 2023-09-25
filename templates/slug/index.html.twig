@@ -15,7 +15,9 @@
     <input type="text" name="phrase" placeholder="Entrez une phrase">
     <button type="submit">Slugifier</button>
 <br>
-    <p style="font-size: 25px;">{{phrase}} => <b>{{slug}}</b></p>
+    <p style="font-size: 25px;">{{phrase}} 
+    {% if slug %}=>{% endif %} 
+    <b>{{slug}}</b></p>
 </form>
 </div>
 {% endblock %}
