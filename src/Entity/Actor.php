@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
+#[ApiResource()]
 class Actor
 {
     #[ORM\Id]
@@ -24,6 +25,9 @@ class Actor
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'Actors')]
     private Collection $movies;
+
+    #[ORM\ManyToOne(inversedBy: 'actors')]
+    private ?Nationality $Nationality = null;
 
     public function __construct()
     {
@@ -82,6 +86,18 @@ class Actor
         if ($this->movies->removeElement($movie)) {
             $movie->removeActor($this);
         }
+
+        return $this;
+    }
+
+    public function getNationality(): ?Nationality
+    {
+        return $this->Nationality;
+    }
+
+    public function setNationality(?Nationality $Nationality): static
+    {
+        $this->Nationality = $Nationality;
 
         return $this;
     }

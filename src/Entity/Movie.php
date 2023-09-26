@@ -8,8 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use PHPUnit\TextUI\XmlConfiguration\Groups;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
+#[ApiResource(
+    normalizationContext: [
+        'groups' => ['movie:read'],
+    ]
+)]
 class Movie
 {
     #[ORM\Id]
@@ -21,18 +27,21 @@ class Movie
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['movie:read'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $releaseDate = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $duration = null;
+    #[ORM\Column(type: Types::INTEGER)]
+    private ?int $duration = null;
 
     #[ORM\ManyToOne(inversedBy: 'movies')]
+    #[Groups(['movie:read'])]
     private ?Category $category = null;
 
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
+    #[Groups(['movie:read'])]
     private Collection $Actors;
 
     public function __construct()
@@ -81,15 +90,15 @@ class Movie
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): ?int
     {
         return $this->duration;
     }
-
-    public function setDuration(\DateTimeInterface $duration): static
+    
+    public function setDuration(?int $duration): static
     {
         $this->duration = $duration;
-
+    
         return $this;
     }
 
