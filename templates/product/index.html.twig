@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DemoController!{% endblock %}
+{% block title %}Hello ProductController!{% endblock %}
 
 {% block body %}
 <style>
@@ -9,9 +9,6 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    <h3>La date et l'heure du jour : {{date}}</h3>
-    <h3>{{ 'now'|format_datetime()}}</h3>
+    <h1>{{listProducts}} ✅</h1>
 </div>
 {% endblock %}
