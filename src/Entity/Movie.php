@@ -19,13 +19,13 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['movie:read']],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['releaseDate'])]
-
+#[ApiFilter(SearchFilter::class, properties: ['id' => 'exact', 'name' => 'partial'])]
 class Movie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['movie:read', 'category:read'])]
+    #[Groups(['movie:read', 'category:read', 'actor:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'movies')]
