@@ -7,6 +7,7 @@ use App\Entity\Nationality;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Faker\Factory;
 
 class ActorFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -18,15 +19,16 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
     {
 
         // Génere les données pour 10 acteurs avec un firstName et un lastName réaliste
-
-        $firstNames = ['Jean', 'Pierre', 'Paul', 'Jacques', 'Marie', 'Julie', 'Julien', 'Jeanne', 'Pierre', 'Pauline'];
-        $lastNames = ['Dupont', 'Durand', 'Duchemin', 'Duchesse', 'Duc', 'Ducroc', 'Ducrocq', 'Ducroq', 'Ducroque', 'Ducroquefort'];
         $nationalities = $manager->getRepository(Nationality::class)->findAll();
 
-        foreach (range(1, 10) as $i) {
+        $faker = Factory::create('fr_FR');
+
+        foreach (range(1, 30) as $i) {
             $actor = new Actor();
-            $actor->setFirstName($firstNames[rand(0, 9)]);
-            $actor->setLastName($lastNames[rand(0, 9)]);
+            // $actor->setFirstName($firstNames[rand(0, 9)]);
+            $actor->setFirstName($faker->firstName());
+            // $actor->setLastName($lastNames[rand(0, 9)]);
+            $actor->setLastName($faker->lastName());
 
             // Vérifie si le tableau des nationalités n'est pas vide
             if (!empty($nationalities)) {
