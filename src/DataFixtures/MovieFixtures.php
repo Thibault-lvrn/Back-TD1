@@ -16,10 +16,12 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         // Génère 40 films avec un titre, une date de sortie, une durée, un synopsis, une catégorie (en lien avec les autres fixtures) et entre 2 et 4 acteurs, diffé (en lien avec les autres fixtures)
+        // tableau php de 40 nom de films :
+        $Films = ['Le Parrain', 'Le Seigneur des anneaux', 'Pulp Fiction', 'La Ligne verte', 'Forrest Gump', 'Le Roi Lion', 'Gladiator', 'Le Silence des agneaux', 'Fight Club', 'Seven', 'Inception', 'Le Prestige', 'Interstellar', 'Django Unchained', 'Le Loup de Wall Street', 'Le Hobbit', 'Le Hobbit 2', 'Le Hobbit 3', 'Le Seigneur des anneaux', 'Le Seigneur des anneaux 2', 'Le Seigneur des anneaux 3', 'Le Parrain 2', 'Le Parrain 3', 'Pulp Fiction 2', 'Pulp Fiction 3', 'La Ligne verte 2', 'La Ligne verte 3', 'Forrest Gump 2', 'Forrest Gump 3', 'Le Roi Lion 2', 'Le Roi Lion 3', 'Gladiator 2', 'Gladiator 3', 'Le Silence des agneaux 2', 'Le Silence des agneaux 3', 'Fight Club 2', 'Fight Club 3', 'Seven 2', 'Seven 3', 'Inception 2', 'Inception 3', 'Le Prestige 2', 'Le Prestige 3', 'Interstellar 2', 'Interstellar 3', 'Django Unchained 2', 'Django Unchained 3', 'Le Loup de Wall Street 2', 'Le Loup de Wall Street 3'];
 
         foreach (range(1, 40) as $i) {
             $movie = new Movie();
-            $movie->setTitle('Movie ' . $i);
+            $movie->setTitle($Films[$i]);
             $movie->setReleaseDate(new \DateTime());
             $movie->setDuration(rand(60, 180));
             $movie->setDescription('Synopsis ' . $i);
