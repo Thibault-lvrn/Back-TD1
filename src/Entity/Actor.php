@@ -9,17 +9,20 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['actor:read']],
 )]
+#[ApiFilter(SearchFilter::class, properties: ['id' => 'exact', 'first_name' => 'partial', 'last_name' => 'partial'])]
 class Actor
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['actor:read'])]
+    #[Groups(['actor:read', 'movie:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 70)]
